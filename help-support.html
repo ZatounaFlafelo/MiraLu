@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Help & Support</title>
+  <style>
+    :root{ --pink:#f875aa; --bg:#fdeded; }
+    body{ margin:0; font-family: Arial, sans-serif; background: var(--bg); color:#222; }
+    .wrap{ max-width: 980px; margin: 60px auto; padding: 0 16px; }
+    .card{
+      max-width: 820px; margin: 0 auto;
+      background: rgba(255,255,255,0.9);
+      border-radius: 28px;
+      padding: 38px 34px;
+      box-shadow: 0 20px 55px rgba(248,117,170,0.22);
+      border: 1px solid rgba(248,117,170,0.18);
+    }
+    h1{
+      margin: 0 0 14px;
+      font-family: "Sackers Gothic","Sackers Gothic Light",serif;
+      color: var(--pink);
+      letter-spacing: 2px;
+      font-weight: 700;
+      text-align:center;
+    }
+    .hint{ text-align:center; margin: 0 0 18px; opacity: .85; }
+    .tracking{
+      display:flex; gap:10px; justify-content:center; align-items:center;
+      margin: 0 0 18px;
+      flex-wrap: wrap;
+    }
+    .pill{
+      border: 2px dashed var(--pink);
+      color: var(--pink);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      letter-spacing: .5px;
+      background: rgba(248,117,170,0.06);
+    }
+    .copy{
+      border: 2px solid var(--pink);
+      background: transparent;
+      color: var(--pink);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor:pointer;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .copy:hover{ transform: translateY(-2px) scale(1.02); background: rgba(248,117,170,0.08); }
+
+    label{ display:block; margin-top: 12px; font-weight: 900; color: var(--pink); font-size: 13px; }
+    input, textarea{
+      width:100%; margin-top:6px;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 2px solid rgba(248,117,170,0.30);
+      outline:none;
+      background: rgba(255,255,255,0.96);
+      transition: .2s ease;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    input:focus, textarea:focus{
+      border-color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(248,117,170,0.18);
+    }
+    textarea{ min-height: 120px; resize: vertical; }
+
+    .row2{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width:720px){ .row2{ grid-template-columns: 1fr; } }
+
+    .send{
+      margin-top: 18px;
+      width:100%;
+      padding: 14px;
+      border: none;
+      border-radius: 999px;
+      background: var(--pink);
+      color: #fff;
+      font-weight: 900;
+      font-size: 16px;
+      cursor:pointer;
+      transition: transform .2s ease;
+    }
+    .send:hover{ transform: translateY(-2px) scale(1.01); }
+    .back{
+      display:block;
+      text-align:center;
+      margin-top: 14px;
+      color: var(--pink);
+      font-weight: 900;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <h1>Help & Support</h1>
+      <p class="hint">Tell us what’s going on. You’ll get a tracking ID for follow-up.</p>
+
+      <div class="tracking">
+        <span class="pill" id="trackPill">Tracking ID: <span id="trackId">—</span></span>
+        <button class="copy" type="button" id="copyBtn">Copy ID</button>
+      </div>
+
+      <form id="supportForm">
+        <label>What can we help you with?</label>
+        <textarea name="issue" required placeholder="Describe the problem clearly (order, product, delivery, website, etc.)"></textarea>
+
+        <div class="row2">
+          <div>
+            <label>Phone Number</label>
+            <input name="phone" required placeholder="01xxxxxxxxx" />
+          </div>
+          <div>
+            <label>Email Address</label>
+            <input name="email" type="email" required placeholder="name@email.com" />
+          </div>
+        </div>
+
+        <button class="send" type="submit">Send</button>
+      </form>
+
+      <a class="back" href="contact.html">← Back to Contact</a>
+    </section>
+  </main>
+
+  <script>
+    const SUPPORT_EMAIL = "MiraLu@gmail.com";
+
+    function makeTrackingId(){
+      const d = new Date();
+      const y = d.getFullYear().toString().slice(-2);
+      const m = String(d.getMonth()+1).padStart(2,"0");
+      const day = String(d.getDate()).padStart(2,"0");
+      const rand = Math.random().toString(36).slice(2,7).toUpperCase();
+      return `ML-SUP-${y}${m}${day}-${rand}`;
+    }
+
+    const trackId = makeTrackingId();
+    document.getElementById("trackId").textContent = trackId;
+
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(trackId);
+        alert("Tracking ID copied ✅");
+      }catch(e){
+        alert("Couldn’t copy—just select and copy it manually.");
+      }
+    });
+
+    document.getElementById("supportForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const issue = e.target.issue.value.trim();
+      const phone = e.target.phone.value.trim();
+      const email = e.target.email.value.trim();
+
+      const subject = `MiraLu Support Ticket (${trackId})`;
+      const body =
+`Tracking ID: ${trackId}
+
+What can we help you with?
+${issue}
+
+Customer Contact:
+Phone: ${phone}
+Email: ${email}
+`;
+
+      const mailto = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+    });
+  </script>
+</body>
+</html>

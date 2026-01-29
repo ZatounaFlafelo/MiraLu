@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Custom Order</title>
+
+  <style>
+    :root{
+      --pink: #f875aa;
+      --bg: #fdeded;
+      --white: #ffffff;
+    }
+
+    *{ box-sizing: border-box; }
+
+    body{
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fdeded;
+      color: #222;
+    }
+
+    /* Page */
+    .page{
+  max-width: 1100px;
+  margin: 60px auto;
+  padding: 16px 0px;
+
+}
+
+    .card{
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 38px 34px;
+    }
+
+    h1{
+      margin: 0 0 24px;
+      text-align: center;
+      font-family: "Sackers Gothic", "Sackers Gothic Light", serif;
+      color: var(--pink);
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    /* Section title */
+    .section-title{
+      margin: 22px 0 10px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      color: var(--pink);
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    /* Items layout: side-by-side cards */
+    .items-grid{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    /* Item / Idea cards */
+    .mini-card{
+      background: rgba(255,255,255,0.92);
+      border-radius: 18px;
+      padding: 16px;
+      border: 2px solid rgba(248,117,170,0.35);
+    }
+
+    .mini-head{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .mini-head h3{
+      margin: 0;
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--pink);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .remove-btn{
+      border: none;
+      background: transparent;
+      color: var(--pink);
+      cursor: pointer;
+      font-weight: 900;
+      padding: 6px 10px;
+      border-radius: 999px;
+      transition: transform 0.2s ease;
+    }
+
+    .remove-btn:hover{
+      transform: scale(1.06);
+    }
+
+    /* Form fields */
+    label{
+      display: block;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--pink);
+      margin-top: 10px;
+    }
+
+    input, select, textarea{
+      width: 100%;
+      margin-top: 6px;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 2px solid rgba(248,117,170,0.30);
+      outline: none;
+      font-size: 14px;
+      background: rgba(255,255,255,0.96);
+      transition: 0.2s ease;
+    }
+
+    input:focus, select:focus, textarea:focus{
+      border-color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(248,117,170,0.18);
+    }
+
+    textarea{
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .row2{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* Buttons */
+    .actions{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .ghost-btn{
+      border: 2px dashed var(--pink);
+      background: transparent;
+      color: var(--pink);
+      padding: 12px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .ghost-btn:hover{
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .submit-btn{
+      margin-top: 18px;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 999px;
+      background: var(--pink);
+      color: white;
+      font-weight: 900;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .submit-btn:hover{
+      transform: translateY(-2px) scale(1.01);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .items-grid{ grid-template-columns: 1fr; }
+    }
+
+
+    /* Pop-in animation when a new card is added */
+.mini-card{
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.mini-card:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.10);
+  border-color: rgba(248,117,170,0.55);
+}
+
+.mini-card.is-new{
+  animation: popIn 220ms ease-out;
+}
+
+@keyframes popIn{
+  from{ transform: translateY(10px); opacity: 0; }
+  to{ transform: translateY(0); opacity: 1; }
+}
+
+
+/* Trash button */
+.remove-btn{
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.remove-btn:hover{
+  transform: scale(1.1);
+  background: rgba(248,117,170,0.12);
+}
+
+/* Pink trash icon */
+.trash-icon{
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: var(--pink);
+
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M9 3h6l1 2h5v2H3V5h5l1-2Zm1 6h2v10h-2V9Zm4 0h2v10h-2V9ZM6 9h2v10H6V9Zm2 13h8a2 2 0 0 0 2-2V9H6v11a2 2 0 0 0 2 2Z'/%3E%3C/svg%3E") center / contain no-repeat;
+
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M9 3h6l1 2h5v2H3V5h5l1-2Zm1 6h2v10h-2V9Zm4 0h2v10h-2V9ZM6 9h2v10H6V9Zm2 13h8a2 2 0 0 0 2-2V9H6v11a2 2 0 0 0 2 2Z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <section class="card">
+      <h1>Custom Order</h1>
+
+      <div class="section-title">Order Items</div>
+      <div id="items" class="items-grid"></div>
+
+      <div class="actions">
+        <button type="button" class="ghost-btn" id="addItemBtn">+ Add another item</button>
+        <button type="button" class="ghost-btn" id="addIdeaBtn">+ Add a Special Idea</button>
+      </div>
+
+      <div class="section-title">Customer Info</div>
+
+      <form id="orderForm">
+        <div class="row2">
+          <div>
+            <label>Name</label>
+            <input name="name" required placeholder="Full name" />
+          </div>
+
+          <div>
+            <label>Phone Number</label>
+            <input name="phone" required placeholder="01xxxxxxxxx" />
+          </div>
+        </div>
+
+        <label>Delivery Address</label>
+        <textarea name="address" required placeholder="Full address"></textarea>
+
+        <button class="submit-btn" type="submit">Send Order</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    // WhatsApp number: 20 + number without leading 0
+    const WA_NUMBER = "201110707515";
+
+    const itemsWrap = document.getElementById("items");
+    const addItemBtn = document.getElementById("addItemBtn");
+    const addIdeaBtn = document.getElementById("addIdeaBtn");
+    const orderForm = document.getElementById("orderForm");
+
+    // Only allowed choices:
+    const productOptions = [
+      "Body Butter",
+      "Body Butter Set",
+      "Soap",
+      "Body Oil",
+      "Body Scrub",
+      "Lip Balm",
+      "Body Mist",
+      "Custom (write in details)"
+    ];
+
+    const scentOptions = [
+      "Vanilla",
+      "Coconut",
+      "Rose",
+      "Lavender",
+      "Strawberry",
+      "Musk",
+      "Unscented",
+      "Custom (write in details)"
+    ];
+
+    const shapeOptions = [
+      "Round",
+      "Square",
+      "Heart",
+      "Flower",
+      "Custom (write in details)"
+    ];
+
+    const colorOptions = [
+      "Pink",
+      "White",
+      "Beige",
+      "Brown",
+      "Clear",
+      "Custom (write in details)"
+    ];
+
+    function makeSelect(name, options){
+      return `
+        <select name="${name}" required>
+          <option value="" disabled selected>Select...</option>
+          ${options.map(o => `<option value="${o}">${o}</option>`).join("")}
+        </select>
+      `;
+    }
+
+    function renumber(){
+      const cards = [...itemsWrap.querySelectorAll(".mini-card")];
+      let itemCount = 0, ideaCount = 0;
+
+      cards.forEach(card => {
+        const type = card.getAttribute("data-type");
+        const title = card.querySelector("h3");
+
+        if(type === "item"){
+          itemCount++;
+          title.textContent = `ITEM ${itemCount}`;
+          card.setAttribute("data-index", itemCount);
+        }else{
+          ideaCount++;
+          title.textContent = `SPECIAL IDEA ${ideaCount}`;
+          card.setAttribute("data-index", ideaCount);
+        }
+      });
+    }
+
+    function addItemCard(){
+      const div = document.createElement("div");
+      div.className = "mini-card";
+      div.classList.add("is-new");
+setTimeout(() => div.classList.remove("is-new"), 260);
+      div.setAttribute("data-type", "item");
+
+      div.innerHTML = `
+        <div class="mini-head">
+          <h3>ITEM</h3>
+          <button type="button" class="remove-btn" aria-label="Remove item" title="Remove">
+  <span class="trash-icon"></span>
+</button>
+        </div>
+
+        <label>Product</label>
+        ${makeSelect("product", productOptions)}
+
+        <label>Scent</label>
+        ${makeSelect("scent", scentOptions)}
+
+        <div class="row2">
+          <div>
+            <label>Shape</label>
+            ${makeSelect("shape", shapeOptions)}
+          </div>
+          <div>
+            <label>Color</label>
+            ${makeSelect("color", colorOptions)}
+          </div>
+        </div>
+
+        <div class="row2">
+          <div>
+            <label>Quantity</label>
+            <input type="number" min="1" value="1" name="qty" required />
+          </div>
+          <div>
+            <label>Custom (write in details)</label>
+            <input name="custom" placeholder="If you chose custom..." />
+          </div>
+        </div>
+
+        <label>Details</label>
+        <textarea name="details" placeholder="Size, ingredients, deadline, packaging, etc."></textarea>
+      `;
+
+      div.querySelector(".remove-btn").addEventListener("click", () => {
+        div.remove();
+        renumber();
+      });
+
+      itemsWrap.appendChild(div);
+      renumber();
+    }
+
+    function addIdeaCard(){
+      const div = document.createElement("div");
+      div.className = "mini-card";
+      div.classList.add("is-new");
+setTimeout(() => div.classList.remove("is-new"), 260);
+      div.setAttribute("data-type", "idea");
+
+      div.innerHTML = `
+        <div class="mini-head">
+          <h3>SPECIAL IDEA</h3>
+          <button type="button" class="remove-btn" aria-label="Remove item" title="Remove">
+  <span class="trash-icon"></span>
+</button>
+        </div>
+
+        <label>Idea Title</label>
+        <input name="idea_title" placeholder="Ex: New product idea" />
+
+        <label>Describe your idea</label>
+        <textarea name="idea_details" placeholder="Tell us what you want us to create for you..."></textarea>
+
+        <label>Any references (optional)</label>
+        <input name="idea_ref" placeholder="Example: 'like X scent / shape'" />
+      `;
+
+      div.querySelector(".remove-btn").addEventListener("click", () => {
+        div.remove();
+        renumber();
+      });
+
+      itemsWrap.appendChild(div);
+      renumber();
+    }
+
+    // Add one item by default
+    addItemCard();
+
+    addItemBtn.addEventListener("click", addItemCard);
+    addIdeaBtn.addEventListener("click", addIdeaCard);
+
+    function getValue(el, selector){
+      const node = el.querySelector(selector);
+      return node ? (node.value || "").trim() : "";
+    }
+
+    orderForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const name = orderForm.querySelector('[name="name"]').value.trim();
+      const phone = orderForm.querySelector('[name="phone"]').value.trim();
+      const address = orderForm.querySelector('[name="address"]').value.trim();
+
+      const cards = [...itemsWrap.querySelectorAll(".mini-card")];
+
+      let itemsText = "";
+      let ideasText = "";
+
+      // Build message from cards
+      let itemNum = 0, ideaNum = 0;
+
+      cards.forEach(card => {
+        const type = card.getAttribute("data-type");
+
+        if(type === "item"){
+          itemNum++;
+
+          const product = getValue(card, 'select[name="product"]');
+          const scent = getValue(card, 'select[name="scent"]');
+          const shape = getValue(card, 'select[name="shape"]');
+          const color = getValue(card, 'select[name="color"]');
+          const qty = getValue(card, 'input[name="qty"]');
+          const custom = getValue(card, 'input[name="custom"]');
+          const details = getValue(card, 'textarea[name="details"]');
+
+          itemsText +=
+`Item ${itemNum}:
+- Product: ${product}
+- Scent: ${scent}
+- Shape: ${shape}
+- Color: ${color}
+- Qty: ${qty}
+- Custom: ${custom}
+- Details: ${details}
+
+`;
+        } else {
+          ideaNum++;
+
+          const title = getValue(card, 'input[name="idea_title"]');
+          const details = getValue(card, 'textarea[name="idea_details"]');
+          const ref = getValue(card, 'input[name="idea_ref"]');
+
+          ideasText +=
+`Special Idea ${ideaNum}:
+- Title: ${title}
+- Details: ${details}
+- Reference: ${ref}
+
+`;
+        }
+      });
+
+      const msg =
+`New Custom Order
+
+ORDER ITEMS:
+${itemsText || "None"}
+
+SPECIAL IDEAS:
+${ideasText || "None"}
+
+CUSTOMER INFO:
+- Name: ${name}
+- Phone: ${phone}
+- Address: ${address}`;
+
+      const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+      window.open(url, "_blank");
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+</html>

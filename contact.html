@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact MiraLu</title>
+  <style>
+    :root{ --pink:#f875aa; --bg:#fdeded; }
+    body{ margin:0; font-family: Arial, sans-serif; background: var(--bg); color:#222; }
+    .wrap{ max-width: 900px; margin: 70px auto; padding: 0 16px; }
+    .card{
+      max-width: 720px; margin: 0 auto;
+      background: rgba(255,255,255,0.9);
+      border-radius: 28px;
+      padding: 40px 32px;
+      box-shadow: 0 20px 55px rgba(248,117,170,0.22);
+      border: 1px solid rgba(248,117,170,0.18);
+      text-align:center;
+    }
+    h1{
+      margin: 0 0 10px;
+      font-family: "Sackers Gothic","Sackers Gothic Light",serif;
+      color: var(--pink);
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+    p{ margin: 0 0 22px; opacity: 0.85; }
+    .btns{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+    .btn{
+      border: 2px solid var(--pink);
+      background: transparent;
+      color: var(--pink);
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease;
+      min-width: 250px;
+    }
+    .btn:hover{ transform: translateY(-2px) scale(1.02); background: rgba(248,117,170,0.08); }
+    .btn.primary{ background: var(--pink); color:#fff; }
+    .btn.primary:hover{ background: var(--pink); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <h1>Contact MiraLu</h1>
+      <p>Choose what you need and we’ll route you to the right form.</p>
+
+      <div class="btns">
+        <button class="btn primary" onclick="location.href='help-support.html'">Help & Support</button>
+        <button class="btn" onclick="location.href='inquiries.html'">Inquiries / Suggestions</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

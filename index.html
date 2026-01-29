@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!-- Google Font -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+     <link rel="stylesheet" href="style.css">
+     <title>Amiraty</title>
+     <style>
+      body{
+        background-color: white;
+      }
+     </style>
+  </head>
+
+
+  <script>
+const searchInput = document.querySelector(".search-box input");
+
+if (searchInput) {
+  searchInput.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      const query = searchInput.value.trim();
+      if (query !== "") {
+        window.location.href = "shop.html?search=" + encodeURIComponent(query);
+      }
+    }
+  });
+}
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("searchForm");
+  const input = document.getElementById("indexSearch");
+
+  if (!form || !input) return;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const q = input.value.trim();
+    if (!q) return;
+
+    window.location.href = "shop.html?search=" + encodeURIComponent(q);
+  });
+});
+</script>
+    <body>
+
+  <main>
+
+   <header class="navbar">
+  <div class="left-side">
+    <div class="logo">
+      MIRALU
+      <div class="tagline">Naturally Royal, Naturally You.</div>
+    </div>
+
+    <nav class="nav-links">
+      <a class="nav-link" href="#">Home</a>
+      <span class="divider"></span>
+      <a class="nav-link" href="shop.html">Shop</a>
+      <span class="divider"></span>
+      <a class="nav-link cta" href="custom-order.html">Custom Order</a>
+    <span class="divider"></span>
+      <a class="nav-link" href="contact.html">Contact Us</a>
+    </nav>
+  </div>
+  <form class="search-box">
+  <input type="text" placeholder="Search...">
+
+  <button type="submit" class="search-btn">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"></circle>
+      <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+    </svg>
+  </button>
+</form>
+<style>
+ .search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: -2px; /* keep your fix */
+}
+
+.search-box input {
+  width: 150px;
+  padding: 10px 40px 10px 14px;
+  border-radius: 999px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.search-box .search-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-box svg {
+  width: 19px;
+  height: 18px;
+  stroke: #f875aa;   /* PINK */
+  stroke-width: 2;
+  fill: none;
+}
+</style>
+
+
+  
+
+</header>
+
+
+   
+
+   <main>
+
+  <section class="hero">
+
+    <div class="hero-text">
+      <h1>Handcrafted body care that feels royal.</h1>
+      <p>Soft formulas, clean scents, and custom sets made just for you.</p>
+
+      <div class="hero-buttons">
+        <a href="shop.html" class="btn main-btn">MiraLu Collection</a>
+        <a href="custom-order.html" class="btn outline-btn">Create a Custom Order</a>
+      </div>
+
+      <div class="hero-tags">
+        <span>Handmade</span>
+        <span>Custom scents</span>
+        <span>Gift-ready sets</span>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <img src="/MiraLu Women.svg" alt="MiraLu women">
+    </div>
+
+  </section>
+
+</main>
+<style>
+  /* ===== HERO SECTION ===== */
+
+.hero{
+  min-height: calc(100vh - 90px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7%;
+  background: #fff;
+  overflow: hidden;
+}
+
+/* LEFT SIDE */
+.hero-text{
+  max-width: 520px;
+}
+
+.hero-text h1{
+  font-size: 3.2rem;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.hero-text p{
+  font-size: 1.05rem;
+  opacity: 0.75;
+  margin-bottom: 26px;
+}
+
+/* BUTTONS */
+.hero-buttons{
+  display: flex;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.btn{
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: 0.25s ease;
+}
+
+.main-btn{
+  background: #f875aa;
+  color: white;
+}
+
+.main-btn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(248,117,170,0.35);
+}
+
+.outline-btn{
+  border: 2px solid #f875aa;
+  color: #f875aa;
+}
+
+.outline-btn:hover{
+  background: #f875aa;
+  color: white;
+}
+
+/* TAGS */
+.hero-tags{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hero-tags span{
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #fde2ec;
+  color: #b84a87;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* RIGHT SIDE IMAGE */
+.hero-image{
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.hero-image img{
+  height: 92%;
+  max-height: 720px;
+  width: auto;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px){
+  .hero{
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 6% 0;
+  }
+
+  .hero-buttons{
+    justify-content: center;
+  }
+
+  .hero-tags{
+    justify-content: center;
+  }
+
+  .hero-image img{
+    height: auto;
+    max-width: 95%;
+    margin-top: 30px;
+  }
+}
+</style>
+
+  <footer>
+  <h6>© 2026 MIRALU — All rights reserved</h6>
+</footer>
+<style>
+  footer {
+  height: 60px;              /* you can change this */
+  background: #f875aa;      /* your pink bar */
+  display: flex;
+  align-items: center;      /* vertical center */
+  justify-content: center;  /* horizontal center */
+}
+
+footer h6 {
+  margin: 0;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 12px;
+}
+</style>
+
+</body>
+
+  
+</html>

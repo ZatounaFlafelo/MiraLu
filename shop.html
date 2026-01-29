@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>MiraLu – Shop</title>
+
+  <style>
+    :root{
+      --pink:#f875aa;
+      --bg:#fdeded;
+      --white:#ffffff;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color:#222;
+    }
+
+    .page{
+      max-width:1100px;
+      margin:70px auto;
+      padding:0 16px;
+    }
+
+    h1{
+      text-align:center;
+      font-family:"Sackers Gothic","Sackers Gothic Light",serif;
+      color:var(--pink);
+      letter-spacing:2px;
+      margin-bottom:35px;
+    }
+
+    /* GRID */
+    .shop-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap:22px;
+    }
+
+    /* PRODUCT BOX */
+    .product-card{
+      background: var(--bg);
+      border-radius:26px;
+      padding:34px 18px;
+      text-align:center;
+      cursor:pointer;
+      transition: transform .25s ease, box-shadow .25s ease;
+      box-shadow: 0 10px 28px rgba(248,117,170,.18);
+      border:2px solid rgba(248,117,170,.35);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .product-card:hover{
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 22px 55px rgba(248,117,170,.28);
+    }
+
+    .product-name{
+      font-weight:900;
+      color:var(--pink);
+      letter-spacing:1px;
+      text-transform:uppercase;
+      font-size:14px;
+    }
+
+    /* soft shine */
+    .product-card::after{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,.5), transparent);
+      transform: rotate(25deg) translateX(-100%);
+      transition: .7s;
+    }
+
+    .product-card:hover::after{
+      transform: rotate(25deg) translateX(100%);
+    }
+
+    /* optional small subtitle */
+    .product-sub{
+      margin-top:6px;
+      font-size:13px;
+      opacity:.75;
+    }
+    /* ===== SHOP PAGE: make it feel fuller (paste at bottom) ===== */
+
+/* page background + layout breathing */
+body{
+  background:
+    radial-gradient(circle at 20% 20%, rgba(248,117,170,.12), transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(248,117,170,.10), transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(248,117,170,.08), transparent 55%),
+    #ffffff;
+}
+
+/* if you have a main wrapper/container, give it a bit more presence */
+.shop-page, .page, main{
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px 40px;
+}
+
+/* title spacing */
+h1{
+  margin: 0 0 18px;
+}
+
+/* add a short “subline” under the title if you have one (optional class) */
+.shop-subtitle{
+  text-align: center;
+  margin: -6px 0 30px;
+  color: rgba(34,34,34,.65);
+  font-size: 14px;
+}
+
+/* grid: denser + centered */
+.products-grid, .grid, .cards{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
+  gap: 18px;
+  align-items: stretch;
+  justify-content: center;
+}
+
+/* cards: bigger + more “designed” */
+.product-card, .box, .product-box{
+  min-height: 130px;
+  padding: 18px 18px;
+  border-radius: 22px;
+  background: rgba(253,237,237,.75);
+  border: 2px solid rgba(248,117,170,.25);
+  box-shadow: 0 10px 28px rgba(0,0,0,.06);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+/* hover = less empty, more alive */
+.product-card:hover, .box:hover, .product-box:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,.10);
+  border-color: rgba(248,117,170,.45);
+  cursor: pointer;
+}
+
+/* center text inside cards */
+.product-card *, .box *, .product-box *{
+  text-align: center;
+}
+
+/* responsive */
+@media (max-width: 1000px){
+  .products-grid, .grid, .cards{ grid-template-columns: repeat(2, minmax(220px, 1fr)); }
+}
+@media (max-width: 560px){
+  .products-grid, .grid, .cards{ grid-template-columns: 1fr; }
+}
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+    <h1 class="shop-title">MiraLu's Collection</h1>
+
+    <section class="shop-grid">
+
+      <div class="product-card">
+        <div class="product-name">Body Butter</div>
+        <div class="product-sub">Soft • Nourishing</div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-name">Body Oils</div>
+        <div class="product-sub">Glow • Hydration</div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-name">Soap</div>
+        <div class="product-sub">Handmade • Clean</div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-name">Body Lotions</div>
+        <div class="product-sub">Daily care</div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-name">Body Mists</div>
+        <div class="product-sub">Light fragrance</div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-name">Lip Scrub</div>
+        <div class="product-sub">Smooth • Soft</div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-name">Lip Oil</div>
+        <div class="product-sub">Gloss • Care</div>
+      </div>
+
+    </section>
+  </main>
+
+ <script>
+const searchInput = document.querySelector(".search-box input");
+const cards = document.querySelectorAll(".product-card");
+
+/* Get search from URL */
+const params = new URLSearchParams(window.location.search);
+const urlSearch = params.get("search");
+
+/* If user came from index */
+if (urlSearch && searchInput) {
+  searchInput.value = urlSearch;
+  filterProducts(urlSearch.toLowerCase());
+}
+
+if (searchInput) {
+  searchInput.addEventListener("input", () => {
+    filterProducts(searchInput.value.toLowerCase());
+  });
+}
+
+function filterProducts(value) {
+  cards.forEach(card => {
+    const text = card.innerText.toLowerCase();
+    card.style.display = text.includes(value) ? "block" : "none";
+  });
+}
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  const q = (params.get("search") || "").trim().toLowerCase();
+
+  if (!q) return;
+
+  // optional: if you ALSO have a search input on shop.html, fill it
+  const shopSearchInput = document.querySelector(".search-box input");
+  if (shopSearchInput) shopSearchInput.value = q;
+
+  const cards = document.querySelectorAll(".product-card");
+  cards.forEach((card) => {
+    const text = card.innerText.toLowerCase();
+    card.style.display = text.includes(q) ? "" : "none";
+  });
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  const q = (params.get("search") || "").trim().toLowerCase();
+
+  const cards = document.querySelectorAll(".product-card");
+  const grid = document.querySelector(".shop-grid");
+  const title = document.querySelector(".shop-title");
+
+  // create "no results" message
+  const noResults = document.createElement("div");
+  noResults.textContent = "No results found";
+  noResults.style.textAlign = "center";
+  noResults.style.margin = "80px auto";
+  noResults.style.fontSize = "26px";
+  noResults.style.fontWeight = "700";
+  noResults.style.color = "#f875aa";
+  noResults.style.display = "none";
+
+  grid.appendChild(noResults);
+
+  if (!q) return;
+
+  let found = 0;
+
+  cards.forEach(card => {
+    const text = card.innerText.toLowerCase();
+    if (text.includes(q)) {
+      card.style.display = "";
+      found++;
+    } else {
+      card.style.display = "none";
+    }
+  });
+
+  if (found === 0) {
+    noResults.style.display = "block";
+    title.style.display = "none";
+  } else {
+    noResults.style.display = "none";
+    title.style.display = "block";
+  }
+});
+</script>
+</body>
+</html>
